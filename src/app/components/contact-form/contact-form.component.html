@@ -1,0 +1,74 @@
+<ng-container *ngIf="hasValidationErrors()">
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert"
+    *ngFor="let msg of contactRequestValidationErrors">
+    {{ msg }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="hasSubmissionErrors()">
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert"
+    *ngFor="let msg of contactRequestSubmissionErrors">
+    {{ msg }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="hasSuccessMessages()">
+
+  <div class="alert alert-success alert-dismissible fade show" role="alert"
+    *ngFor="let msg of contactRequestSuccessMessages">
+    {{ msg }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</ng-container>
+
+
+<form *ngIf="contactRequestForm" class="needs-validation" [formGroup]="contactRequestForm"
+  (ngSubmit)="trySubmitContactRequest($event)" novalidate>
+
+  <div class="form-group">
+    <label for="">Name</label>
+    <input type="text" formControlName="name" id="name" class="form-control form-control-sm" placeholder="">
+    <small id="helpId" class="text-muted">Enter your full name.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="">Email</label>
+    <input type="text" formControlName="email" id="email" class="form-control form-control-sm" placeholder="">
+    <small id="helpId" class="text-muted">Enter your email address</small>
+  </div>
+
+  <div class="form-group">
+    <label for="">Phone Number</label>
+    <input type="text" formControlName="phone" id="phone" class="form-control form-control-sm" placeholder="">
+    <small id="helpId" class="text-muted">Enter your preferred phone number (If outside of Canada please include country
+      code as well)</small>
+  </div>
+
+  <div class="form-group">
+    <label for="message">Message</label>
+    <textarea class="form-control" formControlName="message" id="message" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="contactRequestFormProcessing || contactRequestForm.invalid">
+    <ng-container *ngIf="!contactRequestFormProcessing">
+      Submit
+    </ng-container>
+    <ng-container *ngIf="contactRequestFormProcessing">
+      <i class="fas fa-circle-notch fa-spin"></i>
+    </ng-container>
+  </button>
+
+</form>
